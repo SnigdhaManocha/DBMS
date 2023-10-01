@@ -1,4 +1,5 @@
 * To create a table hospital management
+
 create database DBMS;
 use DBMS;
 
@@ -41,7 +42,9 @@ values(1, "Ms.Sejal Kapoor", "Female", 50, 20, "9543667810", "High fever", "O+",
 (9, "Mrs.Maya Patel", "Female", 51, 28, "9655079855", "Breathing issue", "B-", "A1-602, Waterose residency",
 "07/02/2023", "9:30 AM", "07/02/2023", "12;35 PM", "Mrs. Anu Thakkar"),
 (10, "Mr. Virat Vyas", "Male", 74, 17, "9225689006", "Full body pain", "AB+", "B2- 607, Shresht flats",
-"13/02/2023", "9:55 AM", "13/02/2023", "9;55 AM", "Ms. Neha Kataria");-- To identify the number of female patients
+"13/02/2023", "9:55 AM", "13/02/2023", "9;55 AM", "Ms. Neha Kataria");
+
+
 * To create a table Hospital management 2
 use DBMS;
 
@@ -67,28 +70,39 @@ select*from Hospital_Management;
 
 
 
+
+
+-- To identify the number of female patients
 select*
 from Hospital_Management
 where Patient_Gender= "Female";
+
+
 
 -- To identify the number of patient falling in bar of 15-30
 select*
 from Hospital_Management
 where Patient_Age between 15 and 30;
 
+
+
 -- To arrange the patient data in ascending order of patient age
 select Patient_Name,Patient_Age
 from Hospital_Management
 order by Patient_Age;
+
 
 -- To identift the Average age of patient grouped on the basis of health issues
 select Health_Issue, Avg(Patient_Age)
 from Hospital_Management
 group by Health_Issue;
 
+
+
 -- To group together the patient with the doctors assigned to them
 select concat(Patient_Name," ","AND"," ", Doctor_Assigned) as "Patient_Name AND Doctor_Assigned"
 from Hospital_Management;
+
 
 -- To remove the first 10 rows and give the output with maximum limit of 10 rows
 select*
@@ -96,34 +110,47 @@ from Hospital_Management
 limit 10 offset 10;
 
 
+
 -- To count the number of rows in the taable
 select count(*)
 from Hospital_Management;
+
+
 
 -- To calculate the patients whos weight is less than 55
 select*
 from Hospital_Management
 where not (Patient_Weight<55);
 
+
+
 -- To join the full data from Hospita[ management and only the common data 
 -- from Hotel Management2
 select* from Hospital_Management left outer join Hospital_Management2
 on Hospital_Management.Patient_Name=Hospital_Management2.Patient_Name;
+
+
 
 -- To join the full data from Hospital Management2 and only the common data
 -- from Hospital Management 
 select*from Hospital_Management right outer join Hospital_Management2
 on Hospital_Management.Patient_Name=Hospital_Management2.Patient_Name;
 
+
+
 -- To identify the youngest patient who visited hsopital
 select*
 from Hospital_Management
 where Patient_Age= (select Min(Patient_Age) from Hospital_Management);
 
+
+
 -- To identify the eldest patient who visited hospital
 select*
 from Hospital_Management
 where Patient_Age= (select Max(Patient_Age) from Hospital_Management); 
+
+
 
 -- To identify the number of female patients from the total  umber of patients
 select
@@ -132,9 +159,13 @@ when Patient_Gender="Female" Then "Female"
 end as "Female Patients"
 from Hospital_Management;
 
+
+
 -- To calculate the total number of female patients who visited hospital
 select sum(Patient_Gender="Female") as "Total NO.OF female Patients"
 from Hospital_Management;
+
+
 
 -- To join the full data from Hospital management and only the common data 
 -- from Hotel Management2 where patient gender is female
@@ -142,11 +173,14 @@ select* from Hospital_Management left outer join Hospital_Management2
 on Hospital_Management.Patient_Name=Hospital_Management2.Patient_Name
 where Patient_Gender= "Female";
 
+
+
 -- To join the full data from Hospital management2 and only the common data 
 -- from Hotel Management where patient gender is male
 select* from Hospital_Management left outer join Hospital_Management2
 on Hospital_Management.Patient_Name=Hospital_Management2.Patient_Name
 where Patient_Gender= "Male";
+
 
 
 -- To add a new row to the hospital management table
@@ -158,15 +192,21 @@ values
 "201, Sunrise flats", "29/02/2023", "3:42 PM", "29/02/2023", "3:50 PM", 
 "Mr. Rahul Gupta");
 
+
+
 -- To create a new column inside an existing table
 alter table Hospital_Management2
 add column (Immediate_Test_Required varchar(3));
+
+
 
 -- To identify the patients whose blood group is either O+ or AB+
 use dbms;
 select*
 from Hospital_Management
 where (Blood_Group= "O+" OR Blood_Group= "AB+");
+
+
 
 -- To identify the total of each column from the Hospital Management table
 select
@@ -185,12 +225,16 @@ count(distinct Visit_Time) as Total_No_Of_Visit_Time,
 count(Doctor_Assigned) as Total_No_Of_Doctor_Assigned
 from Hospital_Management;
 
+
+
 -- To order the patients who require test based on number of tests mentioned
 use dbms;
 select Test_Recommended, Number_Of_Tests_Recommended
 from hospital_management2
 where Test_Recommended ="YES"
 Order by Number_Of_Tests_Recommended asc;
+
+
 
 -- To identify the Morning, Afternoon and Evening Appointment
 select
@@ -203,15 +247,20 @@ from hospital_management;
 
 
 
+
 -- To identify the patients who arrived on same time as appointment time
 select*
 from hospital_management
 where Visit_Time= Appointment_Time;
 
+
+
 -- To identify those patients who didn't arrive on same date as appointment date
 select*
 from hospital_management
 where not Visit_Date = Appointment_Date;
+
+
 
 -- To identify patients who have negative blood groups
 select*
